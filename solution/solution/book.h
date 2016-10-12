@@ -12,16 +12,24 @@ class Book
 	
 	static int count;
 public:
+	//конструкторы:
 	Book();
 	Book(char *Title, char *Author,bool inLib);
-	void printBook();
+	
+	//сеттеры:
 	void setTitle(char *Title);
 	void setAuthor(char *Author);
 	void setInLib(bool inLib);
+	
+	//прочие методы:
 	void giveOut();
 	void changeStatus();
+	void printBook();
 	
-	~Book();
+	//геттеры:
 	static int GetCount();
+	
+	//деструктор:
+	~Book();
 };
 
