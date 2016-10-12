@@ -9,7 +9,7 @@ class Book
 	char Title[40];
 	char Author[40];
 	bool inLib;
-	bool isExist;
+	//bool isExist;
 
 	static int count;
 public:

@@ -1,4 +1,3 @@
-
 #include "book.h"
 #include <Windows.h>
 /*
@@ -147,14 +146,14 @@ void printData(Book **booksData, int sizeOfData)
 	
 	for (int i = 0; i < sizeOfData&&count>0; i++)
 	{
-		std::cout << " " << std::setw(3) << i;
+		
 		if (booksData[i] != NULL)
 		{
+			std::cout << " " << std::setw(3) << i;
 			booksData[i]->printBook();
 			count--;
 		}
-		else
-			std::cout << std::endl;
+		
 	}
 	
 }
