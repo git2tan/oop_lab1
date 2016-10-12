@@ -22,7 +22,7 @@ void delByIndx(Book **, int,const int);
 void inputTheTitle(Book*);
 void inputTheAuthor(Book*);
 void inputTheStatus(Book*);
-//const int N = 15;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void main()
 {
@@ -87,7 +87,7 @@ int printMenu2(int ch, Book **Data, int sizeOfData)
 			std::cin >> tmpIndx;
 			printMenu3(tmpIndx, Data, sizeOfData);
 			return 1;
-			};		break; //change by index
+			};		break;												 //change by index
 	case 4: return -1; break;											// exit
 	}
 }
@@ -116,9 +116,9 @@ int printMenu3(const int indx, Book**Data, const int sizeOfData)
 			switch (tmpAnswer)
 			{
 			case -1: return -1; break;
-			case 1:inputTheTitle(Data[indx]); break;//1.Change the Title
-			case 2:inputTheAuthor(Data[indx]); break;//2.Change the Author
-			case 3:Data[indx]->changeStatus(); break;//3.Change the status (In Lib)
+			case 1:inputTheTitle(Data[indx]); break;	//1.Change the Title
+			case 2:inputTheAuthor(Data[indx]); break;	//2.Change the Author
+			case 3:Data[indx]->changeStatus(); break;	//3.Change the status (In Lib)
 			}
 		}
 	}

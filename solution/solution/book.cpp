@@ -8,7 +8,6 @@ Book::Book()
 	strcpy(Title,"<empty>");
 	strcpy(Author,"<empty>");
 	inLib = false;
-	//isExist = false;
 	count++;
 }
 Book::Book(char *Title, char *Author, bool inLib)
@@ -19,10 +18,7 @@ Book::Book(char *Title, char *Author, bool inLib)
 }
 void Book::printBook()
 {
-	//if (isExist)
-		std::cout << std::setw(20) << std::left << this->Title << std::setw(20) << std::left << this->Author << (inLib ? "YES" : "NO") << std::endl;
-	//else
-		//std::cout << std::endl;
+	std::cout << std::setw(20) << std::left << this->Title << std::setw(20) << std::left << this->Author << (inLib ? "YES" : "NO") << std::endl;
 }
 void Book::setTitle(char *Title)
 {
