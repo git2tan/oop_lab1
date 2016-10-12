@@ -14,8 +14,13 @@ class Book
 	static int count;
 public:
 	Book();
-	//Book(char *, char *,bool);
+	Book(char *Title, char *Author,bool inLib);
 	void printBook();
+	void setTitle(char *Title);
+	void setAuthor(char *Author);
+	void setInLib(bool inLib);
+	void giveOut();
+	void changeStatus();
 	
 	//void insertBook();
 	~Book();

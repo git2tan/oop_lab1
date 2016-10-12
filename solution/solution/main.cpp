@@ -9,44 +9,49 @@
 Класс должен отражать состояние книги из библиотечного каталога, и включать в себя сведения: 
 название книги, автор, выдана ли книга или находится в библиотеке.
 */
-void printHeader();
+void printHeader(const int);
 int printMenu1();
-int printMenu2(int, Book **);
-void menu21(int, Book **);
+int printMenu2(int, Book **, int);
+int printMenu3(const int, Book**, const int);
+void menu21(int, Book **, const int);
 int choiseFrom(int);
 void printData(Book **, int);
-void addByIndx(Book **, int);
-void addToEmpty(Book**);
-void delByIndx(Book **, int);
-const int N = 15;
+void addByIndx(Book **, int, const int);
+void addByIndxEmpty(Book**, int, const int);
+void addToEmpty(Book**, const int);
+void delByIndx(Book **, int,const int);
+void inputTheTitle(Book*);
+void inputTheAuthor(Book*);
+void inputTheStatus(Book*);
+//const int N = 15;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void main()
 {
 	bool isExit = 0;
-	
-	Book **booksData = new Book*[N];
-	for (int i = 0; i < N; i++)
+	int sizeOfDB;
+	std::cout << "Please, enter the size of the DB" << std::endl;
+	std::cout << ">>>";
+	std::cin >> sizeOfDB;
+	Book **booksData = new Book*[sizeOfDB];
+	for (int i = 0; i < sizeOfDB; i++)
 		booksData[i] = NULL;
-	/*for (int i = 0; i < 5; i++)
-		booksData[i] = new Book();
-	booksData[10] = new Book();
-	addByIndx(booksData, 7);*/
-	
+		
 	while (!isExit)
 	{
 		system("cls");
-		printHeader();
+		printHeader(sizeOfDB);
 		
-		printData(booksData, N);
+		printData(booksData, sizeOfDB);
 
-		if (printMenu2(printMenu1(), booksData) == -1)
+		if (printMenu2(printMenu1(), booksData, sizeOfDB) == -1)
 			isExit = 1;
 		
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void printHeader()
+void printHeader(const int sizeOfData)
 {
+	std::cout << "INFORMATION: sizeOfDataBase = " << sizeOfData << "   Book->count = " << Book::GetCount() << std::endl;
 	std::cout << std::setw(3) << std::left <<" ##"<< std::setw(20) << std::left << "|   TITLE" << std::setw(20) << std::left << "|  AUTHOR" << "| IN LIBRARY" <<"|"<< std::endl;
 	std::cout << std::setw(56) << std::setfill('-') <<"-"<<std::setfill(' ')<< std::endl;
 }
@@ -59,7 +64,7 @@ int printMenu1()
 	ch = choiseFrom(4);
 	return ch;
 }
-int printMenu2(int ch, Book **Data)
+int printMenu2(int ch, Book **Data, int sizeOfData)
 {
 	
 	if (ch == -1)
@@ -67,18 +72,56 @@ int printMenu2(int ch, Book **Data)
 	switch (ch)
 	{
 	case 1: {
-			std::cout << "1.Add in empty slot" << "2.Add by indx"<<"3.Exit" << std::endl;
-			menu21(choiseFrom(3), Data);
+			std::cout << "1.Add in empty slot   2.Add by indx    3.Add by indx (<empty>)   4.Exit" << std::endl;
+			menu21(choiseFrom(4), Data, sizeOfData);
 															};	break; //add
 	case 2: {
 			std::cout << "Please, input indx" << std::endl; 
 			std::cout << ">>>";
 			int indx;
 			std::cin >> indx;
-			delByIndx(Data, indx);
+			delByIndx(Data, indx, sizeOfData);
 															};		break; //del by index
-	case 3: std::cout << "Please, input indx" << std::endl;		break; //change by index
+	case 3: {
+			std::cout << "Please, input indx" << std::endl; 
+			int tmpIndx;
+			std::cin >> tmpIndx;
+			printMenu3(tmpIndx, Data, sizeOfData);
+			return 1;
+			};		break; //change by index
 	case 4: return -1; break;											// exit
+	}
+}
+int printMenu3(const int indx, Book**Data, const int sizeOfData)
+{
+	if(indx<0||indx>=sizeOfData)
+		return -1;
+	else
+	{
+		if (Data[indx] == NULL)
+		{
+			std::cout << "Error! Slot is not inicialize! Do you want inicialize? Yes(1) or no (0)?" << std::endl;
+			std::cout << ">>>";
+			int tmpAnswer;
+			std::cin >> tmpAnswer;
+			if (tmpAnswer == 1)
+				addByIndxEmpty(Data, indx, sizeOfData);
+			if (tmpAnswer == 0)
+				return -1;
+				
+		}
+		if (Data[indx] != NULL)
+		{
+			std::cout << "1.Change the Title  2.Change the Author  3.Change the status (In Lib) 4. Exit" << std::endl;
+			int tmpAnswer = choiseFrom(4);
+			switch (tmpAnswer)
+			{
+			case -1: return -1; break;
+			case 1:inputTheTitle(Data[indx]); break;//1.Change the Title
+			case 2:inputTheAuthor(Data[indx]); break;//2.Change the Author
+			case 3:Data[indx]->changeStatus(); break;//3.Change the status (In Lib)
+			}
+		}
 	}
 }
 int choiseFrom(int counOfChoise)
@@ -98,20 +141,24 @@ int choiseFrom(int counOfChoise)
 			return ch;
 	}
 }
-void printData(Book **booksData, int countOfBook)
+void printData(Book **booksData, int sizeOfData)
 {
-	for (int i = 0; i < countOfBook; i++)
+	int count = Book::GetCount();
+	
+	for (int i = 0; i < sizeOfData&&count>0; i++)
 	{
-		std::cout<<" "<<std::setw(3) << i;
+		std::cout << " " << std::setw(3) << i;
 		if (booksData[i] != NULL)
 		{
 			booksData[i]->printBook();
+			count--;
 		}
 		else
 			std::cout << std::endl;
 	}
+	
 }
-void menu21(int choise, Book **Data)
+void menu21(int choise, Book **Data, const int sizeOfData)
 {
 	if (choise == -1)
 		return;
@@ -119,7 +166,7 @@ void menu21(int choise, Book **Data)
 	{
 	case 1:
 	{
-		addToEmpty(Data);
+		addToEmpty(Data, sizeOfData);
 	}; break; //add in empty slot
 	case 2:
 	{
@@ -127,43 +174,122 @@ void menu21(int choise, Book **Data)
 		std::cout << ">>>";
 		int choise1;
 		std::cin >> choise1;
-		addByIndx(Data, choise1);
+		addByIndx(Data, choise1, sizeOfData);
 	}; break;//Add by indx
-	case 3:return;
+	case 3:
+	{
+		std::cout << "Please, input indx" << std::endl;
+		std::cout << ">>>";
+		int choise1;
+		std::cin >> choise1;
+		addByIndxEmpty(Data, choise1, sizeOfData);
+	}; break;
 	}
 
 
 }
-void addByIndx(Book ** Data, int indx)
+void addByIndx(Book ** Data, int indx, const int sizeOfData)
 {
-	if (indx < N && indx >= 0)
+	if (indx < sizeOfData && indx >= 0 && Data[indx] == NULL)
+	{
 		Data[indx] = new Book();
+		inputTheTitle(Data[indx]);
+		
+		inputTheAuthor(Data[indx]);
+		
+		inputTheStatus(Data[indx]);
+		
+	}
 	else
 		std::cout << "uncorrect index" << std::endl;
+	system("pause");
 }
-void addToEmpty(Book**Data)
+void addByIndxEmpty(Book ** Data, int indx, const int sizeOfData)
+{
+	if (indx < sizeOfData && indx >= 0 && Data[indx] == NULL)
+	{
+		Data[indx] = new Book();
+		
+
+	}
+	else
+		std::cout << "uncorrect index" << std::endl;
+	system("pause");
+}
+void addToEmpty(Book**Data, const int sizeOfData)
 {
 	int i;
-	for (i = 0; i < N; i++)
+	for (i = 0; i < sizeOfData; i++)
 	{
 		if (Data[i] == NULL)
 			break;
 	}
-	if (i >= N)
+	if (i >= sizeOfData)
 		std::cout << "Data is FULL!!!" << std::endl;
 	else
-		addByIndx(Data, i);
+		addByIndx(Data, i, sizeOfData);
 }
-void delByIndx(Book ** Data, int indx)
+void delByIndx(Book ** Data, int indx,const int sizeOfData)
 {
-	if (Data[indx] != NULL)
+	if ((indx >= 0) && (indx < sizeOfData))
 	{
-		delete(Data[indx]);
-		Data[indx] = NULL;
+		if (Data[indx] != NULL)
+		{
+			delete(Data[indx]);
+			Data[indx] = NULL;
+		}
+		else
+		{
+			std::cout << "already was empty!" << std::endl;
+			system("pause");
+		}
 	}
 	else
 	{
-		std::cout << "already was empty!" << std::endl;
-		system("pause");
+		std::cout << "Error! Uncorrect index!"<<std::endl;
+	}
+	
+}
+void inputTheTitle(Book*srcBook)
+{
+	std::cout << "Please, input the new Title" << std::endl;
+	std::cout << ">>>";
+	std::cin.ignore(std::cin.rdbuf()->in_avail());
+	char s[40];
+	std::cin.getline(s, 40);
+	srcBook->setTitle(s);
+}
+void inputTheAuthor(Book*srcBook)
+{
+	std::cout << "Please, input the new Author" << std::endl;
+	std::cout << ">>>";
+	std::cin.ignore(std::cin.rdbuf()->in_avail());
+	char s[40];
+	std::cin.getline(s, 40);
+	srcBook->setAuthor(s);
+}
+void inputTheStatus(Book*srcBook)
+{
+	std::cout << "Is book in Library? Yes(1) or no(0)" << std::endl;
+	std::cout << ">>>";
+	std::cin.ignore(std::cin.rdbuf()->in_avail());
+	int tmp;
+	std::cin >> tmp;
+	while (true)
+	{
+		if (tmp == 1)
+		{
+			srcBook->setInLib(true);
+			break;
+		}
+		if (tmp == 0)
+		{
+			srcBook->setInLib(false);
+			break;
+		}
+		std::cout << "Sorry, uncorect input. Try again! Is book in Library? Yes(1) or no(0)" << std::endl;
+		std::cout << ">>>";
+		std::cin.ignore(std::cin.rdbuf()->in_avail());
+		std::cin >> tmp;
 	}
 }

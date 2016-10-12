@@ -1,3 +1,4 @@
 ﻿  main.cpp
-c:\users\артем pc\desktop\github-test\oop_lab1\oop_lab1\solution\solution\main.cpp(83): warning C4715: printMenu2: значение возвращается не при всех путях выполнения
+c:\users\артем pc\desktop\github-test\oop_lab1\oop_lab1\solution\solution\main.cpp(98): warning C4715: printMenu2: значение возвращается не при всех путях выполнения
+c:\users\артем pc\desktop\github-test\oop_lab1\oop_lab1\solution\solution\main.cpp(130): warning C4715: printMenu3: значение возвращается не при всех путях выполнения
   solution.vcxproj -> C:\Users\Артем PC\Desktop\GitHub-test\oop_lab1\oop_lab1\solution\Debug\solution.exe
