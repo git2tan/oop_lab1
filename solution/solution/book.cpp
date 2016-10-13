@@ -50,7 +50,7 @@ int Book::giveOut()
 		return -1;
 	}
 }
-void Book::changeStatus()
+void Book::changeInLibStatus()
 {
 	if (this->inLib==true)
 	{

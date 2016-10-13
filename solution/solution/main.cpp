@@ -106,7 +106,7 @@ void printMenu3(const int indx, Book**Data, const int sizeOfData)
 	{
 		if (Data[indx] == NULL) //если слот не проинициализирован
 		{
-			std::cout << "Error! Slot is not inicialize! Do you want INICIALIZE AND CHANGE? Yes(1) or no (0)?" << std::endl;
+			std::cout << "Error! Slot is not inicialize! Do you want add new book? Yes(1) or no (0)?" << std::endl;
 			std::cout << ">>>";
 			
 			int tmpAnswer;
@@ -136,7 +136,7 @@ void printMenu3(const int indx, Book**Data, const int sizeOfData)
 				inputTheAuthor(Data[indx]);
 				break;	
 			case 3:									//3.Change the status (In Lib)
-				Data[indx]->changeStatus();
+				Data[indx]->changeInLibStatus();
 				break;	
 			case 4:									//4.Give out the book
 				giveOutBook(Data[indx]);

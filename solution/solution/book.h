@@ -24,7 +24,7 @@ public:
 	
 	//прочие методы:
 	int giveOut();//выдать книгу
-	void changeStatus();
+	void changeInLibStatus();
 	void printBook();
 	
 	//геттеры:
