@@ -6,28 +6,30 @@
 
 class Book
 {
-	char Title[40];
-	char Author[40];
+	std::string Title;
+	std::string Author;
 	bool inLib;
 	
-	static int count;
+	static int objCount;
 public:
 	//конструкторы:
 	Book();
-	Book(char *Title, char *Author,bool inLib);
+	Book(std::string, std::string, bool);
 	
 	//сеттеры:
-	void setTitle(char *Title);
-	void setAuthor(char *Author);
+	
 	void setInLib(bool inLib);
+	void setTitle(std::string);
+	void setAuthor(std::string);
 	
 	//прочие методы:
-	void giveOut();
+	int giveOut();//выдать книгу
 	void changeStatus();
 	void printBook();
 	
 	//геттеры:
-	static int GetCount();
+	static int GetObjCount();
+	bool getInLib();
 	
 	//деструктор:
 	~Book();

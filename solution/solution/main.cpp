@@ -11,7 +11,7 @@
 void printHeader(const int);
 int printMenu1();
 int printMenu2(int, Book **, int);
-int printMenu3(const int, Book**, const int);
+void printMenu3(const int, Book**, const int);
 void menu21(int, Book **, const int);
 int choiseFrom(int);
 void printData(Book **, int);
@@ -19,6 +19,8 @@ void addByIndx(Book **, int, const int);
 void addByIndxEmpty(Book**, int, const int);
 void addToEmpty(Book**, const int);
 void delByIndx(Book **, int,const int);
+
+void giveOutBook(Book*);
 void inputTheTitle(Book*);
 void inputTheAuthor(Book*);
 void inputTheStatus(Book*);
@@ -43,14 +45,13 @@ void main()
 		printData(booksData, sizeOfDB);
 
 		if (printMenu2(printMenu1(), booksData, sizeOfDB) == -1)
-			isExit = 1;
-		
+			isExit = 1;		
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void printHeader(const int sizeOfData)
 {
-	std::cout << "INFORMATION: sizeOfDataBase = " << sizeOfData << "   Book->count = " << Book::GetCount() << std::endl;
+	std::cout << "INFORMATION: sizeOfDataBase = " << sizeOfData << "   objCount = " << Book::GetObjCount() << std::endl;
 	std::cout << std::setw(3) << std::left <<" ##"<< std::setw(20) << std::left << "|   TITLE" << std::setw(20) << std::left << "|  AUTHOR" << "| IN LIBRARY" <<"|"<< std::endl;
 	std::cout << std::setw(56) << std::setfill('-') <<"-"<<std::setfill(' ')<< std::endl;
 }
@@ -70,55 +71,76 @@ int printMenu2(int ch, Book **Data, int sizeOfData)
 		return -1;
 	switch (ch)
 	{
-	case 1: {
-			std::cout << "1.Add in empty slot   2.Add by indx    3.Add by indx (<empty>)   4.Exit" << std::endl;
+	case 1:																//add
+			std::cout << "1.Add in empty slot   2.Add by indx    3.Add by indx (<empty>)   4.To Main" << std::endl;
 			menu21(choiseFrom(4), Data, sizeOfData);
-															};	break; //add
-	case 2: {
+			break; 
+	case 2:																//del by index
 			std::cout << "Please, input indx" << std::endl; 
 			std::cout << ">>>";
 			int indx;
 			std::cin >> indx;
 			delByIndx(Data, indx, sizeOfData);
-															};		break; //del by index
-	case 3: {
+			break; 
+	case 3:																//change by index
 			std::cout << "Please, input indx" << std::endl; 
 			int tmpIndx;
 			std::cin >> tmpIndx;
 			printMenu3(tmpIndx, Data, sizeOfData);
 			return 1;
-			};		break;												 //change by index
-	case 4: return -1; break;											// exit
+			break;												
+	case 4:																// exit
+			return -1;											
 	}
+	return 1;
 }
-int printMenu3(const int indx, Book**Data, const int sizeOfData)
+void printMenu3(const int indx, Book**Data, const int sizeOfData)
 {
-	if(indx<0||indx>=sizeOfData)
-		return -1;
+	if (indx < 0 || indx >= sizeOfData)
+	{
+		std::cout << "You out of DataBase" << std::endl;
+		system("pause");
+		return;
+	}
 	else
 	{
-		if (Data[indx] == NULL)
+		if (Data[indx] == NULL) //если слот не проинициализирован
 		{
-			std::cout << "Error! Slot is not inicialize! Do you want inicialize? Yes(1) or no (0)?" << std::endl;
+			std::cout << "Error! Slot is not inicialize! Do you want INICIALIZE AND CHANGE? Yes(1) or no (0)?" << std::endl;
 			std::cout << ">>>";
+			
 			int tmpAnswer;
 			std::cin >> tmpAnswer;
+			
 			if (tmpAnswer == 1)
-				addByIndxEmpty(Data, indx, sizeOfData);
+			{
+				addByIndx(Data, indx, sizeOfData);
+				return;
+			}
 			if (tmpAnswer == 0)
-				return -1;
+				return;
 				
 		}
 		if (Data[indx] != NULL)
 		{
-			std::cout << "1.Change the Title  2.Change the Author  3.Change the status (In Lib) 4. Exit" << std::endl;
-			int tmpAnswer = choiseFrom(4);
+			std::cout << "1.Change Title  2.Change Author  3.Change the status (In Lib) 4.Give out the book  5.To Main" << std::endl;
+			int tmpAnswer = choiseFrom(5);
 			switch (tmpAnswer)
 			{
-			case -1: return -1; break;
-			case 1:inputTheTitle(Data[indx]); break;	//1.Change the Title
-			case 2:inputTheAuthor(Data[indx]); break;	//2.Change the Author
-			case 3:Data[indx]->changeStatus(); break;	//3.Change the status (In Lib)
+			case -1: 
+				break;
+			case 1:									//1.Change the Title
+				inputTheTitle(Data[indx]);
+				break;	
+			case 2:									//2.Change the Author
+				inputTheAuthor(Data[indx]);
+				break;	
+			case 3:									//3.Change the status (In Lib)
+				Data[indx]->changeStatus();
+				break;	
+			case 4:									//4.Give out the book
+				giveOutBook(Data[indx]);
+				break;	
 			}
 		}
 	}
@@ -128,8 +150,23 @@ int choiseFrom(int counOfChoise)
 	int ch;
 	while (true)
 	{
-		std::cout << ">>>";
-		std::cin >> ch;
+		while (true)
+		{
+			std::cout << ">>>";
+			std::cin.ignore(std::cin.rdbuf()->in_avail());
+			std::cin >> ch;
+			if (std::cin.peek() == '\n') 
+			{
+				std::cin.get();
+				break;
+			}
+			else {
+				std::cout << "you input not a number!!! Carefully..." << std::endl;
+				std::cin.clear();
+				while (std::cin.get() != '\n') {}
+			}
+		}
+		
 		if (ch == counOfChoise)
 			return -1;
 		if (ch < 1 || ch>counOfChoise)
@@ -142,7 +179,7 @@ int choiseFrom(int counOfChoise)
 }
 void printData(Book **booksData, int sizeOfData)
 {
-	int count = Book::GetCount();
+	int count = Book::GetObjCount();
 	
 	for (int i = 0; i < sizeOfData&&count>0; i++)
 	{
@@ -213,7 +250,7 @@ void addByIndxEmpty(Book ** Data, int indx, const int sizeOfData)
 	}
 	else
 		std::cout << "uncorrect index" << std::endl;
-	system("pause");
+	//system("pause");
 }
 void addToEmpty(Book**Data, const int sizeOfData)
 {
@@ -249,13 +286,24 @@ void delByIndx(Book ** Data, int indx,const int sizeOfData)
 	}
 	
 }
-void inputTheTitle(Book*srcBook)
+
+void giveOutBook(Book* srcBook)
+{
+	if (srcBook->getInLib())
+		srcBook->giveOut();
+	else
+	{
+		std::cout << "It is already give out!" << std::endl;
+		system("pause");
+	}
+}
+void inputTheTitle(Book* srcBook)
 {
 	std::cout << "Please, input the new Title" << std::endl;
 	std::cout << ">>>";
 	std::cin.ignore(std::cin.rdbuf()->in_avail());
-	char s[40];
-	std::cin.getline(s, 40);
+	std::string s;
+	std::getline(std::cin, s);
 	srcBook->setTitle(s);
 }
 void inputTheAuthor(Book*srcBook)
@@ -263,8 +311,8 @@ void inputTheAuthor(Book*srcBook)
 	std::cout << "Please, input the new Author" << std::endl;
 	std::cout << ">>>";
 	std::cin.ignore(std::cin.rdbuf()->in_avail());
-	char s[40];
-	std::cin.getline(s, 40);
+	std::string s;
+	std::getline(std::cin, s);
 	srcBook->setAuthor(s);
 }
 void inputTheStatus(Book*srcBook)

@@ -1,47 +1,53 @@
 #include "book.h"
 
-int Book::count = 0;
+int Book::objCount = 0;
 
-Book::Book()
+//конструкторы:
+Book::Book():Title("<empty>"), Author("<empty>"), inLib(false)
 {
 	std::cout << "create new!" << std::endl;
-	strcpy(Title,"<empty>");
-	strcpy(Author,"<empty>");
-	inLib = false;
-	count++;
+	objCount++;
 }
-Book::Book(char *Title, char *Author, bool inLib)
+Book::Book(std::string Title, std::string Author, bool inLib):Title(Title), Author(Author), inLib(inLib)
 {
-	setTitle(Title);
-	setAuthor(Author);
-	setInLib(inLib);
+	objCount++;
 }
-void Book::printBook()
-{
-	std::cout << std::setw(20) << std::left << this->Title << std::setw(20) << std::left << this->Author << (inLib ? "YES" : "NO") << std::endl;
-}
-void Book::setTitle(char *Title)
-{
-	strcpy(this->Title,Title);
-}
-void Book::setAuthor(char *Author)
-{
-	strcpy(this->Author,Author);
-}
+
+//сеттеры:
 void Book::setInLib(bool inLib)
 {
 	this->inLib = inLib;
 }
-void Book::giveOut()
+void Book::setTitle(std::string Title)
+{
+	if (!Title.empty())
+		this->Title = Title;
+	else
+		this->Title = "<empty(default)>" + std::to_string(objCount);
+}
+void Book::setAuthor(std::string Author)
+{
+	if (!Author.empty())
+		this->Author = Author;
+	else
+		this->Author = "<no name>" + std::to_string(objCount);
+}
+
+//прочие методы:
+void Book::printBook()
+{
+	std::cout << std::setw(20) << std::left << this->Title << std::setw(20) << std::left << this->Author << (inLib ? "YES" : "NO") << std::endl;
+}
+int Book::giveOut()
 {
 	if (this->inLib)
 	{
 		this->inLib = false;
-		std::cout << "Book \"" << this->Title << "\" is give out!" << std::endl;
+		return 1;
 	}
 	else
 	{
-		std::cout << "Book \"" << this->Title << "\" is already out of library! Fail!" << std::endl;
+		return -1;
 	}
 }
 void Book::changeStatus()
@@ -56,12 +62,19 @@ void Book::changeStatus()
 	}
 }
 
-Book::~Book()
+//геттеры:
+int Book::GetObjCount()
 {
-	count--;
+	return objCount;
+}
+bool Book::getInLib()
+{
+	return this->inLib;
 }
 
-int Book::GetCount()
+//деструкторы:
+Book::~Book()
 {
-	return count;
+	objCount--;
 }
+
