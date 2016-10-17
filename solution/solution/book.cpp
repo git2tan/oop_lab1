@@ -12,6 +12,13 @@ Book::Book(std::string Title, std::string Author, bool inLib):Title(Title), Auth
 {
 	objCount++;
 }
+Book::Book(const Book &book)
+{
+	this->Title = book.Title;
+	this->Author = book.Author;
+	this->inLib = book.inLib;
+	objCount++;
+}
 
 //сеттеры:
 void Book::setInLib(bool inLib)
@@ -75,6 +82,8 @@ bool Book::getInLib()
 //деструкторы:
 Book::~Book()
 {
+	std::cout << "Destructor" << std::endl;
 	objCount--;
+	system("pause");
 }
 

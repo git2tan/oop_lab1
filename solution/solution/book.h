@@ -6,15 +6,11 @@
 
 class Book
 {
-	std::string Title;
-	std::string Author;
-	bool inLib;
-	
-	static int objCount;
 public:
 	//конструкторы:
 	Book();
 	Book(std::string, std::string, bool);
+	Book(const Book &);
 	
 	//сеттеры:
 	
@@ -33,5 +29,11 @@ public:
 	
 	//деструктор:
 	~Book();
+private:
+	std::string Title;
+	std::string Author;
+	bool inLib;
+
+	static int objCount;
 };
 

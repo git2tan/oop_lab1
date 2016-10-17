@@ -24,6 +24,7 @@ void giveOutBook(Book*);
 void inputTheTitle(Book*);
 void inputTheAuthor(Book*);
 void inputTheStatus(Book*);
+void copyTheBook(Book**,const int, const int);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void main()
@@ -123,8 +124,8 @@ void printMenu3(const int indx, Book**Data, const int sizeOfData)
 		}
 		if (Data[indx] != NULL)
 		{
-			std::cout << "1.Change Title  2.Change Author  3.Change the status (In Lib) 4.Give out the book  5.To Main" << std::endl;
-			int tmpAnswer = choiseFrom(5);
+			std::cout << "1.Change Title  2.Change Author  3.Change the status (In Lib)\n 4.Give out the book 5.Copy to empty slot  6.To Main" << std::endl;
+			int tmpAnswer = choiseFrom(6);
 			switch (tmpAnswer)
 			{
 			case -1: 
@@ -140,7 +141,11 @@ void printMenu3(const int indx, Book**Data, const int sizeOfData)
 				break;	
 			case 4:									//4.Give out the book
 				giveOutBook(Data[indx]);
-				break;	
+				break;
+			case 5:									//5.Copu to empty slot
+				copyTheBook(Data,indx,sizeOfData);
+				system("pause");
+				break;
 			}
 		}
 	}
@@ -338,5 +343,20 @@ void inputTheStatus(Book*srcBook)
 		std::cout << ">>>";
 		std::cin.ignore(std::cin.rdbuf()->in_avail());
 		std::cin >> tmp;
+	}
+}
+void copyTheBook(Book **Data, const int indx, const int sizeOfData)
+{
+	int i;
+	for (i = 0; i < sizeOfData; i++)
+	{
+		if (Data[i] == NULL)
+			break;
+	}
+	if (i >= sizeOfData)
+		std::cout << "Data is FULL!!!" << std::endl;
+	else
+	{
+		Data[i] = new Book(*Data[indx]);
 	}
 }
