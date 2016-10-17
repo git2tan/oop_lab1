@@ -26,6 +26,8 @@ public:
 	//геттеры:
 	static int GetObjCount();
 	bool getInLib();
+	std::string getTitle();
+	std::string getAuthor();
 	
 	//деструктор:
 	~Book();

@@ -78,6 +78,15 @@ bool Book::getInLib()
 {
 	return this->inLib;
 }
+std::string Book::getTitle()
+{
+	return this->Title;
+}
+
+std::string Book::getAuthor()
+{
+	return this->Author;
+}
 
 //деструкторы:
 Book::~Book()
