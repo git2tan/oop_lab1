@@ -25,9 +25,9 @@ public:
 	
 	//геттеры:
 	static int GetObjCount();
-	bool getInLib();
-	std::string getTitle();
-	std::string getAuthor();
+	bool getInLib() const;
+	std::string getTitle() const;
+	std::string getAuthor() const;
 	
 	//деструктор:
 	~Book();

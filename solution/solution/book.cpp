@@ -74,16 +74,16 @@ int Book::GetObjCount()
 {
 	return objCount;
 }
-bool Book::getInLib()
+bool Book::getInLib() const
 {
 	return this->inLib;
 }
-std::string Book::getTitle()
+std::string Book::getTitle() const
 {
 	return this->Title;
 }
 
-std::string Book::getAuthor()
+std::string Book::getAuthor() const
 {
 	return this->Author;
 }
