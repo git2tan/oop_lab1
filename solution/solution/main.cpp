@@ -29,11 +29,16 @@ void copyTheBook(Book**,const int, const int);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void main()
 {
-	//Book *b =new Book();
-	Book b;
-	std::cin >> b;
-	std::cout << b;
-	system("pause");
+	Book *b =new Book();
+	//Book b;
+	std::cin >> *b;
+	std::cout << *b << std::endl;
+	std::cout << "!b:\n" << !*b << std::endl;
+	Book *tmp = *b + *b;
+	std::cout << "b+b:\n" <<*tmp << std::endl;
+	delete b;
+	delete tmp;
+	
 	/*bool isExit = 0;
 	int sizeOfDB;
 	std::cout << "Please, enter the size of the DB" << std::endl;
@@ -53,6 +58,7 @@ void main()
 		if (printMenu2(printMenu1(), booksData, sizeOfDB) == -1)
 			isExit = 1;		
 	}*/
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void printHeader(const int sizeOfData)
