@@ -29,7 +29,12 @@ void copyTheBook(Book**,const int, const int);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void main()
 {
-	bool isExit = 0;
+	//Book *b =new Book();
+	Book b;
+	std::cin >> b;
+	std::cout << b;
+	system("pause");
+	/*bool isExit = 0;
 	int sizeOfDB;
 	std::cout << "Please, enter the size of the DB" << std::endl;
 	std::cout << ">>>";
@@ -47,7 +52,7 @@ void main()
 
 		if (printMenu2(printMenu1(), booksData, sizeOfDB) == -1)
 			isExit = 1;		
-	}
+	}*/
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void printHeader(const int sizeOfData)
@@ -322,7 +327,7 @@ void inputTheAuthor(Book*srcBook)
 }
 void inputTheStatus(Book*srcBook)
 {
-	std::cout << "Is book in Library? Yes(1) or no(0)" << std::endl;
+	std::cout << "Is book in the Library? Yes(1) or no(0)" << std::endl;
 	std::cout << ">>>";
 	std::cin.ignore(std::cin.rdbuf()->in_avail());
 	int tmp;

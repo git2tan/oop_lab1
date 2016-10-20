@@ -1,7 +1,32 @@
-﻿  book.cpp
+﻿  main.cpp
+c:\users\артем pc\desktop\github-test\oop_lab1\oop_lab1\solution\solution\main.cpp(33): error C2678: бинарный ">>": не найден оператор, принимающий левый операнд типа "std::istream" (или приемлемое преобразование отсутствует)
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(482): note: может быть "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::basic_streambuf<char,std::char_traits<char>> *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(463): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(void *&)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(445): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(long double &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(427): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(double &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(408): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(float &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(390): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned __int64 &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(371): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(__int64 &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(352): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned long &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(334): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(long &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(316): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned int &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(290): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(int &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(271): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(unsigned short &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(236): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(short &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(217): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(bool &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(210): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::ios_base &(__cdecl *)(std::ios_base &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(203): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::basic_ios<char,std::char_traits<char>> &(__cdecl *)(std::basic_ios<char,std::char_traits<char>> &))"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(197): note: или       "std::basic_istream<char,std::char_traits<char>> &std::basic_istream<char,std::char_traits<char>>::operator >>(std::basic_istream<char,std::char_traits<char>> &(__cdecl *)(std::basic_istream<char,std::char_traits<char>> &))"
+  c:\users\артем pc\desktop\github-test\oop_lab1\oop_lab1\solution\solution\book.h(11): note: или       "std::istream &operator >>(std::istream &,Book &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(1073): note: или       "std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,signed char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(1080): note: или       "std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,signed char &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(1087): note: или       "std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,unsigned char *)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(1094): note: или       "std::basic_istream<char,std::char_traits<char>> &std::operator >><std::char_traits<char>>(std::basic_istream<char,std::char_traits<char>> &,unsigned char &)"
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\istream(1104): note: или       "std::basic_istream<char,std::char_traits<char>> &std::operator >><char,std::char_traits<char>,Book*>(std::basic_istream<char,std::char_traits<char>> &&,_Ty &)"
+          with
+          [
+              _Ty=Book *
+          ]
+  c:\users\артем pc\desktop\github-test\oop_lab1\oop_lab1\solution\solution\main.cpp(33): note: при попытке сопоставить список аргументов "(std::istream, Book *)"
+  book.cpp
   Создание кода...
-  Компиляция...
-  main.cpp
-  Создание кода...
-  solution.vcxproj -> C:\Users\Артем PC\Desktop\GitHub-test\oop_lab1\oop_lab1\solution\Debug\solution.exe
-  solution.vcxproj -> C:\Users\Артем PC\Desktop\GitHub-test\oop_lab1\oop_lab1\solution\Debug\solution.pdb (Full PDB)

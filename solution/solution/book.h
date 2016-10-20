@@ -6,31 +6,41 @@
 
 class Book
 {
+	//Пергерузка операторов (через дружественные ф-ии)
+	friend std::ostream &operator<<(std::ostream &, const Book &);
+	friend std::istream &operator >> (std::istream &, Book &);
+	//friend std::
 public:
+	//Пергерузка операторов
+	bool operator!();
+	Book * operator+(Book &);
+	//Book Book::operator++()
 	//конструкторы:
 	Book();
 	Book(std::string, std::string, bool);
 	Book(const Book &);
 	
 	//сеттеры:
-	
-	void setInLib(bool inLib);
-	void setTitle(std::string);
-	void setAuthor(std::string);
+	Book &setBook(std::string Title, std::string Author, bool inLib);
+	Book &setInLib(bool inLib);
+	Book &setTitle(std::string);
+	Book &setAuthor(std::string);
 	
 	//прочие методы:
 	int giveOut();//выдать книгу
 	void changeInLibStatus();
-	void printBook();
+	void printBook() const;
 	
 	//геттеры:
 	static int GetObjCount();
-	bool getInLib() const;
-	std::string getTitle() const;
-	std::string getAuthor() const;
+	const bool getInLib() const;
+	const std::string getTitle() const;
+	const std::string getAuthor() const;
 	
 	//деструктор:
 	~Book();
+	
+
 private:
 	std::string Title;
 	std::string Author;
@@ -38,4 +48,3 @@ private:
 
 	static int objCount;
 };
-
