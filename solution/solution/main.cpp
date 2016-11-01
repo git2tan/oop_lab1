@@ -26,20 +26,22 @@ void inputTheAuthor(Book*);
 void inputTheStatus(Book*);
 void copyTheBook(Book**,const int, const int);
 
+void printMenuLab2(Book**Data, const int sizeOfData);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void main()
 {
-	Book *b =new Book();
-	//Book b;
-	std::cin >> *b;
-	std::cout << *b << std::endl;
-	std::cout << "!b:\n" << !*b << std::endl;
-	Book *tmp = *b + *b;
-	std::cout << "b+b:\n" <<*tmp << std::endl;
-	delete b;
-	delete tmp;
-	
-	/*bool isExit = 0;
+	//Book *b =new Book();
+	////Book b;
+	//std::cin >> *b;
+	//std::cout << *b << std::endl;
+	//std::cout << "!b:\n" << !*b << std::endl;
+	//Book *tmp = *b + *b;
+	//std::cout << "b+b:\n" <<*tmp << std::endl;
+	//delete b;
+	//delete tmp;
+	//
+	bool isExit = 0;
 	int sizeOfDB;
 	std::cout << "Please, enter the size of the DB" << std::endl;
 	std::cout << ">>>";
@@ -57,7 +59,12 @@ void main()
 
 		if (printMenu2(printMenu1(), booksData, sizeOfDB) == -1)
 			isExit = 1;		
-	}*/
+	}
+	for (int i = 0; i < sizeOfDB; i++)
+	{
+		if (booksData[i] != NULL)
+			delete booksData[i];
+	}
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,9 +78,9 @@ int printMenu1()
 {
 	std::cout << std::endl;
 	std::cout << std::setw(56) << std::setfill('+') << "+" << std::setfill(' ') << std::endl;
-	std::cout << std::setw(8)<< " 1.Add " <<std::setw(20)<< " 2.Del by indx" <<std::setw(20)<< "3.Change by indx" <<std::setw(10)<<"4.Exit"<< std::endl;
+	std::cout << std::setw(8)<< " 1.Add " <<std::setw(20)<< " 2.Del by indx" <<std::setw(20)<< "3.Change by indx" << std::setw(10) << "4.Lab 2" <<std::setw(10)<<"5.Exit"<< std::endl;
 	int ch;
-	ch = choiseFrom(4);
+	ch = choiseFrom(5);
 	return ch;
 }
 int printMenu2(int ch, Book **Data, int sizeOfData)
@@ -101,8 +108,10 @@ int printMenu2(int ch, Book **Data, int sizeOfData)
 			printMenu3(tmpIndx, Data, sizeOfData);
 			return 1;
 			break;												
-	case 4:																// exit
-			return -1;											
+	case 4:	
+		printMenuLab2(Data, sizeOfData);
+		break;
+		//return -1;													// Lab 2
 	}
 	return 1;
 }
@@ -370,4 +379,161 @@ void copyTheBook(Book **Data, const int indx, const int sizeOfData)
 	{
 		Data[i] = new Book(*Data[indx]);
 	}
+}
+
+void printMenuLab2(Book**Data, const int sizeOfData)
+{
+	std::cout << "1. Put into \"cout<<\"\n2. \"+\"\n3.\"==\"\n4. \"=\"\n5. to char *\n6. to bool\n7.Input by cin>>\n8.Operator \"!\"\n9. \"!=\"\n10.Return to main menu";
+	int choise = choiseFrom(10);
+	int tmpIndx1, tmpIndx2;
+	Book *tmp = new Book();
+	bool tmpBool;
+	if (choise == -1)
+		return;
+	switch (choise)
+	{
+	case 1:		//1. Put into "cout<<"
+		std::cout << "Please, input indx of first element";
+		std::cin >> tmpIndx1;
+		if (Data[tmpIndx1] != NULL)
+		{
+			std::cout << *Data[tmpIndx1] << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cout << "Error Data[indx] is empty" << std::endl;
+			system("pause");
+		}
+		break;
+	case 2:		//+
+		std::cout << "Please, input indx of first element" << std::endl;
+		std::cin >> tmpIndx1;
+		std::cout << "Please, input indx of second element" << std::endl;
+		std::cin >> tmpIndx2;
+		if (Data[tmpIndx1] != NULL&&Data[tmpIndx2] != NULL)
+		{
+			std::cout << "*Data[first]+*Data[second] and input to COUT = \n" << *(*Data[tmpIndx1] + *Data[tmpIndx2]) << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cout << "Error Data[first] or Data[second] is empty!\n" << std::endl;
+			system("pause");
+		}
+		break;
+	case 3:		//==
+		std::cout << "Please, input indx of first element";
+		std::cin >> tmpIndx1;
+		std::cout << "Please, input indx of second element";
+		std::cin >> tmpIndx2;
+		if (Data[tmpIndx1] != NULL&&Data[tmpIndx2] != NULL)
+		{
+			std::cout << "Data[first]==Data[second] is " << ((Data[tmpIndx1] == Data[tmpIndx2])?"true":"false") << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cout << "Error Data[first] or Data[second] is empty!" << std::endl;
+			system("pause");
+		}
+		break;	
+	case 4:		//=
+		std::cout << "Please, input indx of first element";
+		std::cin >> tmpIndx1;
+		std::cout << "Please, input indx of second element";
+		std::cin >> tmpIndx2;
+		
+		if (Data[tmpIndx1] != NULL&&Data[tmpIndx2] != NULL)
+		{
+			system("pause");
+			tmp = *Data[tmpIndx1] + *Data[tmpIndx2];
+			std::cout << "Data[first]+Data[second] is new Book. Book = " << *tmp << std::endl;
+		}
+		else
+		{
+			std::cout << "Error Data[first] or Data[second] is empty!" << std::endl;
+			system("pause");
+			return;
+		}
+		break;
+	case 5:		//to char
+		std::cout << "Please, input indx of element to translate inti char*"<<std::endl;
+		std::cin >> tmpIndx1;
+		if (Data[tmpIndx1] != NULL)
+		{
+			std::cout << (char*)Data[tmpIndx1] << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cout << "Error Data[indx] is empty" << std::endl;
+			system("pause");
+		}
+		break;
+	case 6:		//to bool
+		std::cout << "Please, input indx of element to translate inti bool" << std::endl;
+		std::cin >> tmpIndx1;
+		if (Data[tmpIndx1] != NULL)
+		{
+			tmpBool = (bool)*Data[tmpIndx1];
+			std::cout << (tmpBool?"bool = true":"bool = false") << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cout << "Error Data[indx] is empty" << std::endl;
+			system("pause");
+		}
+		break;
+	case 7:		//cin
+		std::cout << "Please, input indx empty element of Data to inicialize from cin" << std::endl;
+		std::cin >> tmpIndx1;
+		if (Data[tmpIndx1] != NULL)
+		{
+			std::cout << "Error Data[indx] is not empty" << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cin >> *tmp;
+			Data[tmpIndx1] = tmp;
+			system("pause");
+			return;	//для того чтобы избежать освобождения памяти из под нового объекта (временного)
+		}
+
+		break;
+	case 8:		//!
+		std::cout << "Please, input indx of first element";
+		std::cin >> tmpIndx1;
+		if (Data[tmpIndx1] != NULL)
+		{
+			std::cout <<"!Data[first] = "<< !(*Data[tmpIndx1]) << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cout << "Error Data[indx] is empty" << std::endl;
+			system("pause");
+		}
+		break;
+	case 9:		//!=
+		std::cout << "Please, input indx of first element";
+		std::cin >> tmpIndx1;
+		std::cout << "Please, input indx of second element";
+		std::cin >> tmpIndx2;
+		if (Data[tmpIndx1] != NULL&&Data[tmpIndx2] != NULL)
+		{
+			std::cout << "Data[first]!=Data[second] is " << (Data[tmpIndx1] != Data[tmpIndx2]) << std::endl;
+			system("pause");
+		}
+		else
+		{
+			std::cout << "Error Data[first] or Data[second] is empty!" << std::endl;
+			system("pause");
+		}
+		break;
+		break;
+	}
+	delete tmp;
 }

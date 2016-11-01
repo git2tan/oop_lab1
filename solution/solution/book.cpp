@@ -2,17 +2,55 @@
 
 int Book::objCount = 0;
 //Пергерузка операторов
-bool Book::operator !()
-{
-	return !this->inLib;
-}
-Book * Book::operator+(Book &rightObj)
+//bool Book::operator !()	//сомнительная реализация...
+//{
+//	return !this->inLib;
+//}
+Book * Book::operator + (const Book &rightObj) const
 {
 	Book * tmp = new Book();
-	tmp->Title = this->Title + rightObj.Title;
-	tmp->Author = this->Author + rightObj.Author;
-	tmp->inLib = true;
+	tmp->Title = this->Title + rightObj.Title;	//знаем заранее что у объекта string оператор + перегружен
+	tmp->Author = this->Author + rightObj.Author;	//
+	tmp->inLib = true;	//принимаем, что такая операция создает из двух книг некое "собрание сочинений"
 	return tmp;
+}
+bool Book::operator==(const Book &rightObj) const
+{
+	if ((Title.compare(rightObj.Title) == 0) && (Author.compare(rightObj.Author) == 0) && (inLib == rightObj.inLib))
+		return true;
+	else
+		return false;
+}
+bool Book::operator!=(const Book &rightObj) const
+{
+	if ((Title.compare(rightObj.Title) == 0) && (Author.compare(rightObj.Author) == 0) && (inLib == rightObj.inLib))
+		return false;
+	else
+		return true;
+}
+const Book & Book::operator=(const Book &rightObj)
+{
+	if (&rightObj != this)
+	{
+		this->Author = rightObj.Author;
+		this->Title = rightObj.Title;
+		this->inLib = rightObj.inLib;
+	}
+	else
+	{
+		//попытка самоприсваивания
+	}
+	return *this;
+}
+Book::operator char *() const
+{
+	std::string tmp = Title+" " + Author+" "+(inLib?"true":"false");
+	
+	return &tmp.front();
+}
+Book::operator bool() const
+{
+	return inLib;
 }
 
 //конструкторы:
@@ -120,16 +158,14 @@ Book::~Book()
 	system("pause");
 }
 
-
 //Дружественные функции
-std::ostream &operator<<(std::ostream &output, const Book &obj)
+std::ostream &operator << (std::ostream &output, const Book &obj)
 {
 	output	<< std::setw(20) << std::left << obj.Title 
 			<< std::setw(20) << std::left << obj.Author 
 			<< (obj.inLib ? "YES" : "NO") << std::endl;
 	return output;
 }
-
 std::istream &operator >> (std::istream &in, Book &obj)
 {
 	std::cout << "Please, input the new Title" << std::endl;
