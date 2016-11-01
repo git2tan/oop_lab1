@@ -1,17 +1,13 @@
 #include "book.h"
 
 int Book::objCount = 0;
-//Пергерузка операторов
-//bool Book::operator !()	//сомнительная реализация...
-//{
-//	return !this->inLib;
-//}
+
 Book * Book::operator + (const Book &rightObj) const
 {
 	Book * tmp = new Book();
 	tmp->Title = this->Title + rightObj.Title;	//знаем заранее что у объекта string оператор + перегружен
 	tmp->Author = this->Author + rightObj.Author;	//
-	tmp->inLib = true;	//принимаем, что такая операция создает из двух книг некое "собрание сочинений"
+	tmp->inLib = this->inLib&&rightObj.inLib;	//принимаем, что такая операция создает из двух книг некое "собрание сочинений"
 	return tmp;
 }
 bool Book::operator==(const Book &rightObj) const
@@ -42,11 +38,17 @@ const Book & Book::operator=(const Book &rightObj)
 	}
 	return *this;
 }
-Book::operator char *() const
+Book::operator char*()
 {
-	std::string tmp = Title+" " + Author+" "+(inLib?"true":"false");
+	char * tmpchar;
+	std::string tmp = this->Title + " " + this->Author + " " + (this->inLib ? "true" : "false");
 	
-	return &tmp.front();
+	int length = tmp.length() + 1;
+	tmpchar = new char[length];
+	strcpy(tmpchar, &tmp.front());
+
+	return tmpchar;
+	
 }
 Book::operator bool() const
 {
@@ -163,7 +165,7 @@ std::ostream &operator << (std::ostream &output, const Book &obj)
 {
 	output	<< std::setw(20) << std::left << obj.Title 
 			<< std::setw(20) << std::left << obj.Author 
-			<< (obj.inLib ? "YES" : "NO") << std::endl;
+			<< (obj.inLib ? "YES" : "NO");
 	return output;
 }
 std::istream &operator >> (std::istream &in, Book &obj)

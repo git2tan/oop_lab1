@@ -19,13 +19,11 @@ void addByIndx(Book **, int, const int);
 void addByIndxEmpty(Book**, int, const int);
 void addToEmpty(Book**, const int);
 void delByIndx(Book **, int,const int);
-
 void giveOutBook(Book*);
 void inputTheTitle(Book*);
 void inputTheAuthor(Book*);
 void inputTheStatus(Book*);
 void copyTheBook(Book**,const int, const int);
-
 void printMenuLab2(Book**Data, const int sizeOfData);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,7 +76,7 @@ int printMenu1()
 {
 	std::cout << std::endl;
 	std::cout << std::setw(56) << std::setfill('+') << "+" << std::setfill(' ') << std::endl;
-	std::cout << std::setw(8)<< " 1.Add " <<std::setw(20)<< " 2.Del by indx" <<std::setw(20)<< "3.Change by indx" << std::setw(10) << "4.Lab 2" <<std::setw(10)<<"5.Exit"<< std::endl;
+	std::cout << std::setw(8)<< "\n 1.Add " <<std::setw(20)<< " 2.Del by indx" <<std::setw(20)<< "3.Change by indx" << std::setw(10) << "4.Lab 2" <<std::setw(10)<<"5.Exit"<< std::endl;
 	int ch;
 	ch = choiseFrom(5);
 	return ch;
@@ -311,7 +309,6 @@ void delByIndx(Book ** Data, int indx,const int sizeOfData)
 	}
 	
 }
-
 void giveOutBook(Book* srcBook)
 {
 	if (srcBook->getInLib())
@@ -383,21 +380,22 @@ void copyTheBook(Book **Data, const int indx, const int sizeOfData)
 
 void printMenuLab2(Book**Data, const int sizeOfData)
 {
-	std::cout << "1. Put into \"cout<<\"\n2. \"+\"\n3.\"==\"\n4. \"=\"\n5. to char *\n6. to bool\n7.Input by cin>>\n8.Operator \"!\"\n9. \"!=\"\n10.Return to main menu";
+	std::cout << "1. Put into \"cout<<\"\n2. \"+\"\n3.\"==\"\n4. \"=\"\n5. to char *\n6. to bool\n7.Input by cin>>\n8.Operator \"!\"\n9. \"!=\"\n10.Return to main menu\n";
 	int choise = choiseFrom(10);
 	int tmpIndx1, tmpIndx2;
 	Book *tmp = new Book();
+	char *tmpChar;
 	bool tmpBool;
 	if (choise == -1)
 		return;
 	switch (choise)
 	{
 	case 1:		//1. Put into "cout<<"
-		std::cout << "Please, input indx of first element";
+		std::cout << "Please, input indx of first element"<<std::endl;
 		std::cin >> tmpIndx1;
 		if (Data[tmpIndx1] != NULL)
 		{
-			std::cout << *Data[tmpIndx1] << std::endl;
+			std::cout << *Data[tmpIndx1]<<std::endl;
 			system("pause");
 		}
 		else
@@ -462,8 +460,10 @@ void printMenuLab2(Book**Data, const int sizeOfData)
 		std::cin >> tmpIndx1;
 		if (Data[tmpIndx1] != NULL)
 		{
-			std::cout << (char*)Data[tmpIndx1] << std::endl;
+			tmpChar = (char*)(*Data[tmpIndx1]);
+			std::cout << tmpChar << std::endl;
 			system("pause");
+			delete(tmpChar);
 		}
 		else
 		{
@@ -501,14 +501,13 @@ void printMenuLab2(Book**Data, const int sizeOfData)
 			system("pause");
 			return;	//для того чтобы избежать освобождения памяти из под нового объекта (временного)
 		}
-
 		break;
 	case 8:		//!
 		std::cout << "Please, input indx of first element";
 		std::cin >> tmpIndx1;
 		if (Data[tmpIndx1] != NULL)
 		{
-			std::cout <<"!Data[first] = "<< !(*Data[tmpIndx1]) << std::endl;
+			std::cout <<"!Data[first] = "<< (!(*Data[tmpIndx1])?"true":"false") << std::endl;
 			system("pause");
 		}
 		else

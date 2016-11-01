@@ -13,12 +13,11 @@ class Book
 	
 public:
 	//Пергерузка операторов
-	//bool operator!();
 	Book * operator+(const Book &) const;	//3
 	bool operator==(const Book &) const;	//4
 	bool operator!=(const Book &) const;	//5
 	const Book &operator = (const Book &);	//6
-	operator char*() const;					//7
+	operator char*();					//7
 	operator bool() const;					//8
 
 	//конструкторы:
